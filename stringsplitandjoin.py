@@ -1,6 +1,6 @@
 
 
-string1 = 'Have you followed CodeWithJoxia On Instagram?'
+string1 = 'Have you followed CodeWithJoxia On Instagram???'
 
 
 def split_and_join(line):
