@@ -1,12 +1,14 @@
 ## Python Password Generator
 
 import random
+import string
 
 def generatepassword():
 
-    lower = 'abcdefghijklmnopqrstuvwxyz'
-    numbers = '1234567890'
-    symbols = '[]{}()*;/,.-_'
+    lower = string.ascii_lowercase
+    upper = string.ascii_uppercase
+    numbers = string.digits
+    symbols = string.punctuation
 
     all = lower + lower.upper() + numbers + symbols
     length = 16
