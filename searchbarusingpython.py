@@ -29,4 +29,3 @@ btn_close = Button(win, text="Close", command=win.destroy)
 btn_close.grid(row=1, column=1, columnspan=2, pady=10)
 
 win.mainloop()
-
