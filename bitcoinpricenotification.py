@@ -2,13 +2,13 @@ import requests
 import time
 from datetime import datetime
 
-BITCOIN_PRICE_THRESHOLD = 10000  # Set this to whatever you like
+BITCOIN_PRICE_THRESHOLD = 50000  # Set this to whatever you like
 
 coin_API_key = '0a4ed4d7-b56a-42d1-9467-a8efd2e93c6f' 
 BITCOIN_API_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
 
-ifttt_API_key = 'd4z7ZvF8pPKU0Im0ZdYyGRanA0bmhXLiYeGd65GU767' ## Get your API key from your IFTTT account
-IFTTT_WEBHOOKS_URL = 'https://maker.ifttt.com/trigger/test_event/with/key/d4z7ZvF8pPKU0Im0ZdYyGRanA0bmhXLiYeGd65GU767'
+ifttt_API_key =  ## Get your API key from your IFTTT account
+IFTTT_WEBHOOKS_URL = 'https://maker.ifttt.com/trigger/{0}/with/key/{1}'
 
 def get_latest_bitcoin_price():  
     # This method gets the bitcoin data from coinmarketcap 
@@ -44,10 +44,12 @@ def post_ifttt_webhook(event, value):
     data = {'value1': value}
     
     # inserts our desired event
-    ifttt_event_url = IFTTT_WEBHOOKS_URL.format(event)
-    
+    ifttt_event_url = IFTTT_WEBHOOKS_URL.format(event, ifttt_API_key)
+
     # Sends a HTTP POST request to the webhook URL
-    requests.post(ifttt_event_url, json=data)
+    response = requests.post(ifttt_event_url, json=data)
+    print (response.text)
+    
 
 def format_bitcoin_history(bitcoin_history):
     rows = []
@@ -71,13 +73,13 @@ def main():
     while True:
         price = get_latest_bitcoin_price()
 
-        print ("Got price")
         date = datetime.now()
         bitcoin_history.append({'date': date, 'price': price})
 
         # Send an emergency notification
         if price < BITCOIN_PRICE_THRESHOLD:
             post_ifttt_webhook('bitcoin_price_emergency', price)
+            print ("After")
 
         # Send a Telegram notification
         # Once we have 5 items in our bitcoin_history send an update
@@ -90,6 +92,7 @@ def main():
         # Sleep for 5 minutes 
         # (For testing purposes you can set it to a lower number)
         time.sleep(5 * 60)
+        
 
 if __name__ == '__main__':
     main()
