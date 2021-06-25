@@ -12,11 +12,13 @@ def generateotp():
     otp = letters[0:3] + "-" + numbers   
 
     body = "Use this OTP {} to verify your account".format(otp)
+    
+    print (body)
 
     return body
 
 def bulksmsnigeria_module(phone_number, sender_name):
-    my_api_token = '' # Get your API_Key from www.bulksmsnigeria.com 
+    my_api_token =  # Get your API_Key from www.bulksmsnigeria.com 
     
     if sender_name.strip() == '':
         sender_name = 'Joxia'
@@ -29,6 +31,8 @@ def bulksmsnigeria_module(phone_number, sender_name):
     return response.json()['data']['status']
 
 #send SMS module
-status = bulksmsnigeria_module("234813835", 'Joxia')
+status = bulksmsnigeria_module("2348020", 'Joxia')
 
 print (status)
+
+#follow insta/@codewithjoxia
